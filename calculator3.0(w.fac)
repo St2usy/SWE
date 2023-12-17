@@ -1,0 +1,110 @@
+class calculator:
+    def __init__(self):
+        self.__errno = 0
+    
+    def run_calculator(self):
+        first_operand = self.__check_not_integer(input())
+        self.__egg_messages(first_operand)
+        operator = input()
+
+        while operator != '=':
+            if operator == "!":
+                self.__check_factorial_valid(first_operand)
+                if self.__errno == 0:
+                    first_operand = self.__calculate_factorial(first_operand)
+                operator = input()
+                if operator !='=':
+                    self.__errno = 2
+                    break
+                else:
+                    break
+            if not(operator in ['+', '-', '*', '!']):
+                operator = input()
+                self.__errno = 5
+                break
+            next_operand = self.__check_not_integer(input())
+            self.__egg_messages(next_operand)
+            self.__check_operator_valid(operator)
+            next_operator = input()
+            self.__check_operator_same(operator, next_operator)
+            first_operand = self.__calculate(first_operand, next_operand, operator)
+            operator = next_operator
+
+        self.__error_print()
+        if self.__errno == 0:  # 에러가 없을 경우에만 결과 출력
+            print(first_operand)
+
+    def __calculate(self, first_operand, next_operand, operator):
+        result = 0
+        if self.__errno != 0:
+            return result
+        if operator == "+":
+            result = first_operand + next_operand
+        elif operator == "-":
+            result = first_operand - next_operand
+        elif operator == "*":
+            result = first_operand * next_operand
+        return result
+
+    def __calculate_factorial(self, number):
+        if number == 0 or number == 1:
+            return 1
+        else:
+            return number * self.__calculate_factorial(number - 1)
+
+    def __check_operator_valid(self, operator):
+        if not(operator in ['+', '-', '*', '!']):
+            self.__errno = 2
+
+    def __check_operator_same(self, first_operator, next_operator):
+        if first_operator != next_operator :
+            if next_operator != '=':
+                self.__errno = 3
+
+    def __check_not_integer(self, input_operand):
+        try:
+            operand = int(input_operand)
+        except (ValueError):
+            self.__errno = 1
+            operand = 0.404 
+        return operand
+
+    def __check_factorial_valid(self, number):
+        if number < 0:
+            self.__errno = 4
+
+    def __error_print(self):
+        if self.__errno == 0:
+            return
+        elif self.__errno == 1:
+            print("[ERROR] Not Integer!")
+        elif self.__errno == 2:
+            print("[ERROR] Operator Invalid!")
+        elif self.__errno == 3:
+            print("[ERROR] Different Operator!")
+        elif self.__errno == 4:
+            print("[ERROR] Out Of Range!")
+        elif self.__errno == 5:
+            print("[ERROR] Input Error!")
+        exit()
+    
+    def __egg_messages(self, operand):
+        if operand == 7:
+            print("[EVENT] 행운")
+        elif operand == 1221:
+            print("[EVENT] 종강종강 돌을 던지자")
+        elif operand == 18:
+            print("[EVENT] 바른말고운말")
+        elif operand == 0:
+            print("[EVENT] 0은 여기서 False란다")
+        elif operand == 1:
+            print("[EVENT] 1은 여기서 True란다")
+        elif operand == 2:
+            print("[EVENT] Binary..?")
+        elif operand == 534:
+            print("[EVENT] 컴공생들의 무덤")
+        elif operand == 1015:
+            print("[EVENT] 전북대 개교기념일입니다.")
+
+a = calculator()
+a.run_calculator()
