@@ -114,7 +114,7 @@ class calculator:
             elif error == 4:
                 print("[ERROR] Out Of Range!")
             elif error == 5:
-                print("[SYSTEM] Input Error!") # ppt 내용대로 수정 (지워야함)
+                print("[SYSTEM] Input Error!") 
         exit()
         
     # 이스터에그 함수, 특정한 숫자일 때 특별한 메시지 출력
@@ -136,7 +136,7 @@ class calculator:
         elif operand == 1015:
             print("[EVENT] 전북대 개교기념일입니다.")
 
-class Test1(unittest.TestCase): # 연산자 연속성체크
+class Test_check_operator_same(unittest.TestCase): # 연산자 연속성체크
     def test1(self):
         calc = calculator()
         result = calc.check_operator_same('+', '-')
@@ -144,7 +144,7 @@ class Test1(unittest.TestCase): # 연산자 연속성체크
         result = calc.check_operator_same('-', '*')
         self.assertEqual(calc.get_errno(), [3,3,3])
 
-class Test2(unittest.TestCase): # 정수가 아닌 피연산자 체크
+class Test_check_not_integer(unittest.TestCase): # 정수가 아닌 피연산자 체크
     def test2(self):
         calc = calculator()
         result = calc.check_not_integer('1')
@@ -155,7 +155,7 @@ class Test2(unittest.TestCase): # 정수가 아닌 피연산자 체크
         result = calc.check_not_integer('-1')
         self.assertEqual(calc.get_errno(), [1,1])
 
-class Test3(unittest.TestCase): # 팩토리얼 피연산자 확인
+class Test_check_factorial_valid(unittest.TestCase): # 팩토리얼 피연산자 확인
     def test3(self):
         calc = calculator()
         result = calc.check_factorial_valid(0)
@@ -169,9 +169,9 @@ class Test3(unittest.TestCase): # 팩토리얼 피연산자 확인
 if __name__ == '__main__':
     suite = unittest.TestSuite()
 
-    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(Test1))
-    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(Test2))
-    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(Test3))
+    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(Test_check_not_integer))
+    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(Test_check_factorial_valid))
+    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(Test_check_operator_same))
     unittest.TextTestRunner().run(suite)
         
 a = calculator()
