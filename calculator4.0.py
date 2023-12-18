@@ -110,7 +110,7 @@ class calculator:
             elif error == 4:
                 print("[ERROR] Out Of Range!")
             elif error == 5:
-                print("[ERROR] Input Error!")
+                print("[SYSTEM] Input Error!")
         exit()
         
     # 이스터에그 함수, 특정한 숫자일 때 특별한 메시지 출력
